@@ -27,7 +27,7 @@ const Bookshelf = () => {
         <div className="formDiv">
           <h3>Add a Book</h3>
           {/* Form will go here */}
-          <div>
+          <div className="row">
             <label htmlFor="title">Title: </label>
 
             <input
@@ -39,7 +39,7 @@ const Bookshelf = () => {
             />
           </div>
 
-          <div>
+          <div className="row">
             <label htmlFor="author">Author: </label>
             <input
               name="author"
@@ -59,9 +59,16 @@ const Bookshelf = () => {
         </div>
       </form>
       <div className="bookCardsDiv">
-        {/* Book cards will display here */}
-        <div>{JSON.stringify(books)}</div>
-        <div>Testing</div>
+        <div>
+          {books.map((item, idx) => {
+            return (
+              <div className="bookCard" key={idx}>
+                <div>{item.title}</div>
+                <div>by: {item.author}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

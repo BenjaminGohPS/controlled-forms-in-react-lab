@@ -8,7 +8,7 @@ import Bookshelf from "./component/Bookshelf";
 
 const App = () => {
   return (
-    <div>
+    <div className="container">
       <h1>My Bookshelf</h1>
       <Bookshelf />
     </div>
