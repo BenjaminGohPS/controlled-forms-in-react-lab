@@ -32,7 +32,7 @@ body {
   min-width: 100vw;
   min-height: 100vh;
 
-  /*I changed the color, so not to glaring */
+  /*changed the color, so not to glaring */
   background-color: #011222;
   color: white;
 }
@@ -74,6 +74,7 @@ form {
 
 input {
   padding: 5px;
+  
 }
 
 .bookshelfDiv {

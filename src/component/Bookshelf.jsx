@@ -8,11 +8,12 @@ const Bookshelf = () => {
 
   const [newBook, setNewBook] = useState({ title: "", author: "" });
 
+  const [errors, setErrors] = useState({ title: "", author: "" });
+
   const handleInputChange = (event) => {
-    //code block here
-    // setNewBook(event.target.value);
-    // setNewBook((prevState) => [...prevState, {[event.target.name]: event.target.value}])
+    // setNewBook((prevState) =>({...prevState, [event.target.name]: event.target.value}))
     setNewBook({ ...newBook, [event.target.name]: event.target.value });
+    checkErrors(event);
   };
 
   const handleSubmit = (event) => {
@@ -21,34 +22,61 @@ const Bookshelf = () => {
     setNewBook({ title: "", author: "" });
   };
 
+  const checkErrors = ({ target }) => {
+    if (target.name === "title") {
+      setErrors({
+        ...errors,
+        title:
+          target.value.length < 1
+            ? "Your title must be at least 1 character long"
+            : "",
+      });
+    }
+    if (target.name === "author") {
+      setErrors({
+        ...errors,
+        author:
+          target.value.length < 2
+            ? "Your author must be at least 2 character long"
+            : "",
+      });
+    }
+  };
+
   return (
     <div className="bookshelfDiv">
-      <form onSubmit={handleSubmit}>
-        <div className="formDiv">
-          <h3>Add a Book</h3>
-          {/* Form will go here */}
+      <div className="formDiv">
+        <h3>Add a Book</h3>
+        {/* Form will go here */}
+
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <label htmlFor="title">Title: </label>
 
             <input
+              id="title"
               name="title"
               type="text"
               placeholder="Title"
               onChange={handleInputChange}
               value={newBook.title}
+              required
             />
+            {errors.title && <p className="error">{errors.title}</p>}
           </div>
 
           <div className="row">
             <label htmlFor="author">Author: </label>
             <input
+              id="author"
               name="author"
               type="text"
               placeholder="Author"
               onChange={handleInputChange}
               value={newBook.author}
+              required
             />
-            {/* {JSON.stringify(newBook)} */}
+            {errors.author && <p className="error">{errors.author}</p>}
           </div>
 
           <div>
@@ -56,8 +84,9 @@ const Bookshelf = () => {
               Add Book
             </button>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
+
       <div className="bookCardsDiv">
         <div>
           {books.map((item, idx) => {
@@ -75,8 +104,3 @@ const Bookshelf = () => {
 };
 
 export default Bookshelf;
-
-/**
-need to map through the array else how to get the data?
-
-*/
