@@ -10,8 +10,11 @@ const Bookshelf = () => {
 
   const [errors, setErrors] = useState({ title: "", author: "" });
 
+  const formIsInvalid = Object.values(errors).some(Boolean);
+  const formHasMissingDate = !Object.values(newBook).every(Boolean);
+
   const handleInputChange = (event) => {
-    // setNewBook((prevState) =>({...prevState, [event.target.name]: event.target.value}))
+    // another method: setNewBook((prevState) =>({...prevState, [event.target.name]: event.target.value}))
     setNewBook({ ...newBook, [event.target.name]: event.target.value });
     checkErrors(event);
   };
@@ -60,7 +63,6 @@ const Bookshelf = () => {
               placeholder="Title"
               onChange={handleInputChange}
               value={newBook.title}
-              required
             />
             {errors.title && <p className="error">{errors.title}</p>}
           </div>
@@ -74,13 +76,15 @@ const Bookshelf = () => {
               placeholder="Author"
               onChange={handleInputChange}
               value={newBook.author}
-              required
             />
             {errors.author && <p className="error">{errors.author}</p>}
           </div>
 
           <div>
-            <button type="submit" onSubmit={handleSubmit}>
+            <button
+              type="submit"
+              disabled={formIsInvalid || formHasMissingDate}
+            >
               Add Book
             </button>
           </div>
